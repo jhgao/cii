@@ -1,0 +1,11 @@
+Stack_free	stack.c	/^void Stack_free(T *stk) {$/
+Stack_new	stack.c	/^T Stack_new(void) {$/
+Stack_pop	stack.c	/^void *Stack_pop(T stk) {$/
+Stack_push	stack.c	/^void Stack_push(T stk, void *x) {$/
+T	stack.c	6
+T	stack.c	7
+count	stack.c	8
+elem	stack.c	9
+head	stack.c	12
+link	stack.c	11
+x	stack.c	10
