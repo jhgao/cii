@@ -3,7 +3,15 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "def.h"
+#define STRLENMAX 15
+#define STRNUM 50000
+
+
+static struct atom_string {
+        char str[STRLENMAX];
+        size_t len;
+        char *atom;
+} strings[STRNUM];
 
 void rand_str(char *dest, size_t length) {
         char charset[] = "0123456789"
@@ -19,7 +27,7 @@ void rand_str(char *dest, size_t length) {
 
 int main(int argc, char * argv[])
 {
-        int i = STRNUM;
+        int i, j ;
         char str[STRLENMAX];
         size_t len;
         char *atom;
@@ -27,18 +35,39 @@ int main(int argc, char * argv[])
         int hit = 0;
         int miss = 0;
 
-        srand(time(NULL));
+        clock_t s_new, f_new, s_len, f_len;
 
-        while( i-- > 0 ){
+        srand(time(NULL));
+        //prepare data
+        for ( i=0; i< STRNUM ; i++ )
+        {
                 len = (double) rand() / RAND_MAX * STRLENMAX - 1;
-                rand_str(str, len);
-                atom = (char *)Atom_string(str);
-                if (Atom_length(atom) == len)
+                strings[i].len = len;
+                rand_str( strings[i].str, len);
+        }
+
+        //new atoms
+        i = STRNUM;
+        s_new = clock();
+        while( i-- > 0 ){
+                atom = (char *)Atom_string(strings[i].str);
+                strings[i].atom = atom;
+        }
+        f_new = clock();
+
+        // hit len
+        s_len = clock();
+        i = STRNUM;
+        while( i-- > 0 ){
+                if (Atom_length(strings[i].atom) == strings[i].len)
                         hit ++;
                 else
                         miss ++;
         }
+        f_len = clock();
 
+        printf("new %f s\n",(float)(f_new - s_new) / CLOCKS_PER_SEC );
+        printf("len %f s\n",(float)(f_len- s_len) / CLOCKS_PER_SEC );
         printf("hit %d / miss %d \n", hit, miss);
 
         return 0;

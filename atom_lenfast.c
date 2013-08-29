@@ -141,14 +141,6 @@ const char *Atom_new(const char *str, int len) {
 	return p->str;
 }
 
-inline unsigned long Atom_hash(const char *str, int len) {
-        unsigned long h;
-        int i;
-	for (h = 0, i = 0; i < len; i++)
-		h = (h<<1) + scatter[(unsigned char)str[i]];
-        return h;
-}
-
 int Atom_length(const char *str) {
 	struct aptr *p;
 	int i;
