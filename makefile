@@ -40,6 +40,9 @@ exe3.1: testlen.o atom.o
 test3.1: exe3.1
 	time ./$<
 
+teststruct: struct.o stack.o assert.o except.o mem.o
+teststack: stack.o assert.o except.o mem.o
+
 .PHONY: clean
 clean:
 	rm -f *.o *.d exe3.*

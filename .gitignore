@@ -1,3 +1,9 @@
+*
+!*.c
+!*.h
+!makefile
+!README.md
+
 # Object files
 *.o
 
