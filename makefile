@@ -2,7 +2,7 @@ CC = clang
 CFLAGS = -g
 CPPFLAGS = -Iinclude
 
-vpath %.c src
+vpath %.c src exesrc
 vpath %.h include
 
 atom_DEP = assert.o except.o mem.o
