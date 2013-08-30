@@ -12,7 +12,11 @@ exe3%: $(atom_DEP)
 
 .PHONY: test3.6
 exe3.6: testlen.o atom_lenfast.o
-test3.6: exe3.6 exe3.1b
+test3.6single: exe3.6
+	#
+	# fast Atom_length
+	time ./exe3.6
+test3.6compare: exe3.6 exe3.1b
 	#
 	# fast Atom_length
 	time ./exe3.6

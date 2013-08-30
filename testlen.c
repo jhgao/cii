@@ -4,7 +4,7 @@
 #include <time.h>
 
 #define STRLENMAX 15
-#define STRNUM 15000
+#define STRNUM 20000
 
 
 static struct atom_string {

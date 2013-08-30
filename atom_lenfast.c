@@ -16,7 +16,7 @@ static struct aptr {    //hash item for atom*
         struct aptr *link;
         char *str;
         struct atom *asp;
-} *pbkt[2048];
+} *pbkt[2039];
 
 static unsigned long scatter[] = {
 2078917053, 143302914, 1027100827, 1953210302, 755253631, 2002600785,
@@ -91,7 +91,7 @@ void ptr_new(const char * str, struct atom* asp ) {
         unsigned long h;
         int i;
         struct aptr* p;
-        unsigned long d = str;
+        size_t d =(size_t) str;
         assert(str);
         assert(asp);
 
@@ -105,7 +105,7 @@ void ptr_new(const char * str, struct atom* asp ) {
 //      always new
 
         p = ALLOC(sizeof (*p));
-        p->str = str;
+        p->str = (char *) str;
         p->asp = asp;
         p->link = pbkt[h];
         pbkt[h] = p;
@@ -145,7 +145,7 @@ int Atom_length(const char *str) {
 	struct aptr *p;
 	int i;
         unsigned long h;
-        unsigned long d = str;
+        size_t d = (size_t)str;
 	assert(str);
 
         for (h = 0, i=0 ; i < sizeof str ; i++ )
