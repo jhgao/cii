@@ -12,8 +12,13 @@ exe3%: $(atom_DEP)
 
 .PHONY: test3.6
 exe3.6: testlen.o atom_lenfast.o
-test3.6: exe3.6
-	time ./$<
+test3.6: exe3.6 exe3.1b
+	#
+	# fast Atom_length
+	time ./exe3.6
+	#
+	# slow Atom_length
+	time ./exe3.1b
 
 .PHONY: test3.5
 exe3.5hash: testlen.o atom2hash.o
@@ -36,9 +41,15 @@ test3.4: exe3.4
 	time ./exe3.4b
 
 .PHONY:test3.1
-exe3.1: testlen.o atom.o 
-test3.1: exe3.1
-	time ./$<
+exe3.1a: testlen.o atom.o
+exe3.1b: testlen.o atom1.o
+test3.1: exe3.1a exe3.1b
+	#
+	# bucket[2048]
+	time ./exe3.1a
+	#
+	# bucket[2039]
+	time ./exe3.1b
 
 teststruct: struct.o stack.o assert.o except.o mem.o
 teststack: stack.o assert.o except.o mem.o

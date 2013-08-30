@@ -4,7 +4,7 @@
 #include <time.h>
 
 #define STRLENMAX 15
-#define STRNUM 50000
+#define STRNUM 15000
 
 
 static struct atom_string {
@@ -36,6 +36,8 @@ int main(int argc, char * argv[])
         int miss = 0;
 
         clock_t s_new, f_new, s_len, f_len;
+
+        printf("[test] %d atoms of maxsize = %d B\n",STRNUM, STRLENMAX);
 
         srand(time(NULL));
         //prepare data
