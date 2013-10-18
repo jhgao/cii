@@ -1,8 +1,8 @@
+static char rcsid[] = "$Id: stack.c 6 2007-01-22 00:45:22Z drhanson $";
 #include <stddef.h>
 #include "assert.h"
 #include "mem.h"
-#include "stack.h" 
-
+#include "stack.h"
 #define T Stack_T
 struct T {
 	int count;
@@ -11,7 +11,6 @@ struct T {
 		struct elem *link;
 	} *head;
 };
-
 T Stack_new(void) {
 	T stk;
 	NEW(stk);
@@ -19,10 +18,12 @@ T Stack_new(void) {
 	stk->head = NULL;
 	return stk;
 }
-
+int Stack_empty(T stk) {
+	assert(stk);
+	return stk->count == 0;
+}
 void Stack_push(T stk, void *x) {
 	struct elem *t;
-
 	assert(stk);
 	NEW(t);
 	t->x = x;
@@ -30,11 +31,9 @@ void Stack_push(T stk, void *x) {
 	stk->head = t;
 	stk->count++;
 }
-
 void *Stack_pop(T stk) {
 	void *x;
 	struct elem *t;
-
 	assert(stk);
 	assert(stk->count > 0);
 	t = stk->head;
@@ -46,7 +45,6 @@ void *Stack_pop(T stk) {
 }
 void Stack_free(T *stk) {
 	struct elem *t, *u;
-	
 	assert(stk && *stk);
 	for (t = (*stk)->head; t; t = u) {
 		u = t->link;
@@ -54,4 +52,3 @@ void Stack_free(T *stk) {
 	}
 	FREE(*stk);
 }
-

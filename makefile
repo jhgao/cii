@@ -1,9 +1,9 @@
 CC = clang
 CFLAGS = -g
-CPPFLAGS = -Iinclude
+CPPFLAGS = -Ilibinclude -Iinclude
 
-vpath %.c src exesrc
-vpath %.h include
+vpath %.c libsrc src
+vpath %.h libinclude include
 
 atom_DEP = assert.o except.o mem.o
 
@@ -60,5 +60,6 @@ teststack: stack.o assert.o except.o mem.o
 
 .PHONY: clean
 clean:
-	rm -f *.o *.d exe3.*
+	find . -maxdepth 1 -type f -perm /111 -exec rm {} \;
+	rm -f *.o *.d
 
